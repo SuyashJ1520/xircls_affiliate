@@ -1,11 +1,9 @@
 import { useEffect, useState } from 'react'
 import { Modal, ModalHeader, ModalBody, ModalFooter, Button, Card, CardBody } from 'reactstrap'
 import defaultAvatar from '@src/assets/images/portrait/small/avatar-s-11.jpg'
-import { affiliateURL, getReq } from '../../../assets/auth/jwtService'
+import { affiliateURL, getReq, postReq } from '../../../assets/auth/jwtService'
 import toast from 'react-hot-toast'
 import Spinner from '../../Components/DataTable/Spinner'
-import axios from 'axios'
-// import defaultAvatar from '@src/assets/images/portrait/small/avatar-s-11.jpg'
 
 function AdminDetailsCard() {
     const [cancelModalOpen, setCancelModalOpen] = useState(false)
@@ -40,26 +38,10 @@ function AdminDetailsCard() {
     }
 
     const saveUserDetail = () => {
-        // const form_data = new FormData()
-        // form_data.append('firstname', data?.firstName)
-        // form_data.append('lastname', data?.lastName)
-        // postReq('edit_user_account_details', form_data, affiliateURL)
-        //     .then((resp) => {
-        //         console.log(resp.data)
-        //         setCancelModalOpen(false)
-        //         toast.success("Details Updated Successfully")
-        //         getData()
-        //     })
-        //     .catch((error) => {
-        //         toast.error("Something went wrong")
-        //         setCancelModalOpen(false)
-        //         console.log(error)
-        //     })
-
         const form_data = new FormData()
         form_data.append('firstname', data?.firstName)
         form_data.append('lastname', data?.lastName)
-        axios.post("https://97d1-2402-e280-3d9c-20d-cd80-93-827d-1f8.ngrok-free.app/affiliate/fund/bank_details/", form_data)
+        postReq('edit_user_account_details', form_data, affiliateURL)
             .then((resp) => {
                 console.log(resp.data)
                 setCancelModalOpen(false)
@@ -71,6 +53,7 @@ function AdminDetailsCard() {
                 setCancelModalOpen(false)
                 console.log(error)
             })
+
     }
 
     useEffect(() => {

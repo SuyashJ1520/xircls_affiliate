@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import emilVerify from './imgs/emilVerify.jpeg'
 import { useParams } from 'react-router-dom'
-import { ngrokURL } from '../../assets/auth/jwtService'
+import { affiliateURL } from '../../assets/auth/jwtService'
 import toast from 'react-hot-toast'
 
 export default function VerifyEmail() {
@@ -12,19 +12,19 @@ export default function VerifyEmail() {
     const verifyFun = () => {
         const formData = new FormData()
         formData.append("slug", id)
-        fetch(`${ngrokURL}/affiliate/affiliate_person_email_veri/`, {
+        fetch(`${affiliateURL}/affiliate/email_verification/`, {
             method: 'POST',
             body: formData
         }).then((res) => {
-                return res.json()
-            }).then((res) => {
-                if (res.message) {
-                    setIsEmailVerify(true)
-                }
-            }).catch((err) => {
-                console.log(err)
-                toast.error("Server Error !")
-            })
+            return res.json()
+        }).then((res) => {
+            if (res.message) {
+                setIsEmailVerify(true)
+            }
+        }).catch((err) => {
+            console.log(err)
+            toast.error("Server Error !")
+        })
     }
     return (
         <div className='d-flex justify-content-center align-items-center' style={{ minHeight: "100vh" }}>
@@ -37,7 +37,7 @@ export default function VerifyEmail() {
                             <video autoPlay={true} className=' object-fit-cover '><source src="https://cdnl.iconscout.com/lottie/premium/thumb/verified-7239114-5874724.mp4" type="video/mp4" /></video>
                         </div>
                         <h3>Email Verified </h3>
-                        <a href="affiliate/login/" className='btn text-white px-3 mt-1 rounded-1' style={{ background: "#006aff" }}>Go To Login Page</a>
+                        <a href="https://affiliate.xircls.com/affiliate/login/" className='btn text-white px-3 mt-1 rounded-1' style={{ background: "#006aff" }}>Go To Login Page</a>
 
                     </div>
                 </div> : <div className=' shadow-lg rounded-2 text-center' style={{ maxWidth: "600px", width: "100%", minHeight: "400px" }}>

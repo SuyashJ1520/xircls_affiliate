@@ -4,9 +4,10 @@ import { Container, Row } from 'reactstrap'
 import FrontBaseLoader from "../Components/Loader/Loader"
 import { forEach } from "lodash"
 import toast from "react-hot-toast"
-import { ngrokURL, postReq } from "../../assets/auth/jwtService"
+import { affiliateURL, ngrokURL, postReq } from "../../assets/auth/jwtService"
 import { useNavigate } from "react-router-dom"
 import { setToken } from "../../assets/auth/auth"
+import { ChevronLeft } from "react-feather"
 
 const LoginOTP = ({ email, setShowOTP }) => {
     const [otp, setOTP] = useState(['', '', '', '', ''])
@@ -15,6 +16,23 @@ const LoginOTP = ({ email, setShowOTP }) => {
     const [time, setTime] = useState(initialTime)
     const [ResendBtn, setResendBtn] = useState(false)
     const navigate = useNavigate()
+
+    const sendOTP = (e) => {
+        e.preventDefault()
+        const formData = new FormData()
+        formData.append("email", email)
+        setLoading(true)
+        postReq("two_step_verification", formData, affiliateURL)
+            .then((res) => {
+                toast.success("OTP has been sent!")
+            })
+            .catch((err) => {
+                toast.error("Something went wrong!")
+            })
+            .finally(() => {
+                setLoading(false)
+            })
+    }
     useEffect(() => {
 
         const intervalId = setInterval(() => {
@@ -70,19 +88,13 @@ const LoginOTP = ({ email, setShowOTP }) => {
         const formData = new FormData()
         formData.append("otp", otp.join(''))
         formData.append("email", email)
-        fetch(`${ngrokURL}/affiliate/two_step_veri/`, {
-            method: 'POST',
-            body: formData
-        })
-            .then((res) => {
-                return res.json()
-            })
-            // postReq("two_step_veri", formData, ngrokURL)
+        setLoading(true)
+        postReq("two_step_verification", formData, affiliateURL)
             .then((res) => {
                 if (res.error) {
                     toast.error(res.error)
-                } else if (res?.token) {
-                    const tokenValue = JSON.stringify(res?.token)
+                } else if (res?.data.token) {
+                    const tokenValue = JSON.stringify(res?.data.token)
                     setToken(tokenValue)
                     toast.success('Login successful. Welcome!')
                     navigate("/merchant/affiliate/dashboard/")
@@ -99,27 +111,7 @@ const LoginOTP = ({ email, setShowOTP }) => {
             })
 
     }
-    const reSendOTP = (e) => {
-        e.preventDefault()
-     
-        const formData = new FormData()
-        formData.append("email", email)
-        postReq("loginaffliate", formData, ngrokURL)
-            // postReq("two_step_veri", formData, ngrokURL)
-            .then((res) => {
-               
-                console.log("resss", res)
-                toast.success("OTP sent successfully")
-            })
-            .catch((err) => {
-                toast.error("Server error!")
-                console.log(err)
-            })
-            .finally(() => {
-                setLoading(false)
-            })
-
-    }
+  
     useEffect(() => {
         inputRefs[0].current.focus()
 
@@ -131,7 +123,8 @@ const LoginOTP = ({ email, setShowOTP }) => {
                 <Container className='login pt-5 pb-3 d-flex justify-content-center'>
                     <Row className="w-100">
                         <div className='mx-auto' style={{ width: `666px`, maxWidth: `95%` }}>
-                            <form onSubmit={handleOTP} className="front_border" style={{ border: "1px solid #ebe9f1", padding: "3rem" }}>
+                            <form className="front_border position-relative " style={{ border: "1px solid #ebe9f1", padding: "3rem" }}>
+                                <button className="btn btn-sm position-absolute top-0 start-0 mt-1 ms-1"><ChevronLeft size={15} /> Back </button>
                                 <h3 className=" text-center mb-1">Two-step verification</h3>
                                 <p className="text-center">
                                     Enter the 5-digit verification code that was sent to your <span className="text-primary">{email}</span>.
@@ -156,7 +149,7 @@ const LoginOTP = ({ email, setShowOTP }) => {
                                         <p>Don`t received a code ? Try again in  <span className="text-primary">{formatTime(time)}</span> mins</p>
                                     </div>
                                     {
-                                        ResendBtn && <button className="btn btn-primary  px-3"onClick={reSendOTP} >Resend otp</button>
+                                        ResendBtn && <button className="btn btn-primary  px-3" onClick={sendOTP} >Resend otp</button>
                                     }
 
                                 </div>

@@ -12,6 +12,7 @@ import LoginOTP from "./LoginOTP"
 
 
 const LoginPage = () => {
+
     const navigate = useNavigate()
     const [data, setData] = useState({
         email: "",
@@ -37,27 +38,40 @@ const LoginPage = () => {
         const formData = new FormData()
         Object.entries(data).map(([key, value]) => formData.append(key, value))
 
-        postReq("loginaffliate", formData, affiliateURL)    
+        postReq("loginaffliate", formData, affiliateURL)
             .then((res) => {
                 console.log("login response", res.data)
-                if (res.data.two_step_veri) {
-                    setShowOTP(true)
+                if (res.data.two_step) {
+                    const formData = new FormData()
+                    formData.append("email", data.email)
+                    setLoading(true)
+                    postReq("two_step_verification", formData, affiliateURL)
+                        .then((res) => {
+                            toast.success("OTP has been sent!")
+                            setShowOTP(true)
+                        })
+                        .catch((err) => {
+                            toast.error("Something went wrong!")
+                        }).finally(() => {
+                            setLoading(false)
+                        })
                 } else if (res?.data?.token) {
                     toast.success('Login successful. Welcome!')
                     const tokenValue = JSON.stringify(res?.data?.token)
                     setToken(tokenValue)
                     navigate("/merchant/affiliate/dashboard/")
+                    setLoading(false)
                 } else {
                     toast.error('Invalid email or password')
+                    setLoading(false)
                 }
             })
             .catch((err) => {
-                toast.error('Invalid email or password')
-                console.log(err)
-            })
-            .finally(() => {
+                toast.error(err.response.data.message)
+                console.log(err.response.data.message)
                 setLoading(false)
             })
+
     }
 
     return (

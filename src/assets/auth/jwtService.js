@@ -145,7 +145,7 @@ export const configUrl = {
     average_order_value: "/affiliate/fund/average_order_value/",
     wallet_transactions_get_view: "/affiliate/fund/wallet_transactions_get_view/",
     bank_view: "/affiliate/fund/bank_view/",
-    two_step_veri: "/affiliate/two_step_veri/",
+    two_step_verification: "/affiliate/two_step_verification/",
     bank_details: "/affiliate/fund/bank_details/",
     password_update: "/affiliate/password_update/"
 
