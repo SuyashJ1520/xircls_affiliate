@@ -32,7 +32,7 @@ const Conversion_Rate = () => {
     <>
       <Row>
         <Col md={6}>
-          <CardCom icon={<DollarSign size={27} />} title={"Aveage Order Value"} data={!isLoading ? `₹${cardData?.average_order_value}` : <Spinner />} />
+          <CardCom icon={<DollarSign size={27} />} title={"Aveage Order Value"} data={!isLoading ? `$${cardData?.average_order_value}` : <Spinner />} />
         </Col>
       </Row>
     </>

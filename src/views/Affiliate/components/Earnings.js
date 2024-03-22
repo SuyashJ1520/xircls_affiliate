@@ -36,19 +36,19 @@ const Earnings = () => {
         <>
             <Row>
                 <Col md={6} onClick={() => navigate('')} style={{ cursor: "pointer" }}>
-                    <CardCom icon={<DollarSign size={27} />} title={"Commission Amount"} data={!isLoading ? `₹${cardData.wallet_data?.total}` : <Spinner />} />
+                    <CardCom icon={<DollarSign size={27} />} title={"Commission Amount"} data={!isLoading ? `$${cardData.wallet_data?.total}` : <Spinner />} />
                 </Col>
 
                 <Col md={6} onClick={() => navigate('')} style={{ cursor: "pointer" }}>
-                    <CardCom icon={<DollarSign size={27} />} title={"Total Commissions"} data={!isLoading ? `₹${cardData.total_commission ?? "0" }` : <Spinner />}/>
+                    <CardCom icon={<DollarSign size={27} />} title={"Total Commissions"} data={!isLoading ? `$${cardData.total_commission ?? "0" }` : <Spinner />}/>
                 </Col>
 
                 <Col md={6} onClick={() => navigate('')} style={{ cursor: "pointer" }}>
-                    <CardCom icon={<DollarSign size={27} />} title={"Paid Commission"} data={!isLoading ? `₹${cardData.wallet_data?.withdrawable - cardData.wallet_data?.total}` : <Spinner />} />
+                    <CardCom icon={<DollarSign size={27} />} title={"Paid Commission"} data={!isLoading ? `$${cardData.wallet_data?.withdrawable - cardData.wallet_data?.total}` : <Spinner />} />
                 </Col>
 
                 <Col md={6} onClick={() => navigate('')} style={{ cursor: "pointer" }}>
-                    <CardCom icon={<DollarSign size={27} />} title={"Unpaid Commission"} data={!isLoading ? `₹${cardData.wallet_data?.withdrawable}` : <Spinner />} />
+                    <CardCom icon={<DollarSign size={27} />} title={"Unpaid Commission"} data={!isLoading ? `$${cardData.wallet_data?.withdrawable}` : <Spinner />} />
                 </Col>
             </Row>
             <AllEarnings />

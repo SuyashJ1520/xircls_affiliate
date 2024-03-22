@@ -243,7 +243,7 @@ const Affiliate = () => {
 
 
             <div className=" px-1  d-flex gap-1 justify-content-center  align-items-center ">
-             <h4 className="m-0">Wallet Balance : ₹ {cardData?.wallet_data?.withdrawable}</h4>
+             <h4 className="m-0">Wallet Balance : $ {cardData?.wallet_data?.withdrawable}</h4>
             <button className="btn btn-sm btn-primary" onClick={() => setIsModal2(!isModal2)}>Withdraw</button>
             </div>
           <div className="d-flex align-items-center gap-1">
@@ -265,31 +265,31 @@ const Affiliate = () => {
       <div className={`position-relative`}>
         <Row className="match-height">
           <Col md={6} onClick={() => navigate('/merchant/affiliate/all_revenue/')} style={{ cursor: "pointer" }}>
-            <CardCom icon={<img width={27} src="https://cdn-icons-png.flaticon.com/512/1773/1773345.png"  />} title={"Total Sales"} info={'The total sales generated from your customers'} data={!isLoading ? `₹${cardData?.wallet_data?.total_revenue ?? 0}` : <Spinner />} />
+            <CardCom icon={<img width={27} src="https://cdn-icons-png.flaticon.com/512/1773/1773345.png"  />} title={"Total Sales"} info={'The total sales generated from your customers'} data={!isLoading ? `$${cardData?.wallet_data?.total_revenue ?? 0}` : <Spinner />} />
           </Col>
           <Col md={6} onClick={() => navigate('/merchant/affiliate/all_earnings/')} style={{ cursor: "pointer" }}>
-            <CardCom icon={<img width={27} src="https://cdn2.iconfinder.com/data/icons/thin-money-finance-2/24/thin-1107_money_coins-256.png"  />} title={"Total Earnings"} info={'Your total income from affiliate commissions on sales, including accrued commissions that have not yet been paid out'} data={!isLoading ? `₹${cardData?.wallet_data?.total ?? 0}` : <Spinner />} />
+            <CardCom icon={<img width={27} src="https://cdn2.iconfinder.com/data/icons/thin-money-finance-2/24/thin-1107_money_coins-256.png"  />} title={"Total Earnings"} info={"Your total income from affiliate commissions on sales, including accrued commissions that have not yet been paid out."}  data={!isLoading ? `$${cardData?.wallet_data?.total ?? 0}` : <Spinner />} />
           </Col>
           <Col md={6} onClick={() => navigate('/merchant/affiliate/dash_payout/')} style={{ cursor: "pointer" }}>
-            <CardCom icon={<img width={27} src="https://cdn2.iconfinder.com/data/icons/the-finance/512/payout_2-512.png"  />} title={"Payout"} info={'The specific portion of the total earnings that have been paid out to you'} data={!isLoading ? `₹${Math.round((walletData?.paid_all_time + Number.EPSILON) * 100) / 100 ?? 0}` : <Spinner />} />
+            <CardCom icon={<img width={27} src="https://cdn2.iconfinder.com/data/icons/the-finance/512/payout_2-512.png"  />} title={"Payout"} info={'The specific portion of the total earnings that have been paid out to you.'} data={!isLoading ? `$${Math.round((walletData?.paid_all_time + Number.EPSILON) * 100) / 100 ?? 0}` : <Spinner />} />
           </Col>
           <Col md={6} onClick={() => navigate('/merchant/affiliate/all_withdrawal/')} style={{ cursor: "pointer" }}>
-            <CardCom icon={<img width={27} src="https://cdn2.iconfinder.com/data/icons/the-finance/512/ATM_money-512.png"  />} title={"Pending Payout"} info={'Total amount of commission or earnings accumulated over a specific period but has not yet been paid out'} data={!isLoading ? `₹${cardData?.pending_payouts ?? 0}` : <Spinner />} />
+            <CardCom icon={<img width={27} src="https://cdn2.iconfinder.com/data/icons/the-finance/512/ATM_money-512.png"  />} title={"Pending Payout"} info={'Total amount of commission or earnings accumulated over a specific period but has not yet been paid out.'} data={!isLoading ? `$${cardData?.pending_payouts ?? 0}` : <Spinner />} />
           </Col>
           <Col md={6} onClick={() => navigate('/merchant/affiliate/all_customers/')} style={{ cursor: "pointer" }}>
-            <CardCom icon={<Users size={27} />} title={"Customers"} info={'Individuals or entities who have clicked on your affiliate referral link/s and completed at least one purchase on XIRCLS, resulting in a commission for you'} data={!isLoading ? walletData.customers_count : <Spinner />} />
+            <CardCom icon={<Users size={27} />} title={"Customers"} info={'Individuals or entities who have clicked on your affiliate referral link/s and completed at least one purchase on XIRCLS, resulting in a commission for you.'} data={!isLoading ? walletData.customers_count : <Spinner />} />
           </Col>
           <Col md={6} onClick={() => navigate('/merchant/affiliate/order_value/')} style={{ cursor: "pointer" }}>
-            <CardCom icon={<img width={27} src="https://cdn-icons-png.flaticon.com/512/2361/2361607.png"  />} title={"Average Order Value"} info={'The average amount spent by your customers on XIRCLS solutions'} data={!isLoading ? dashData?.average_order_value : <Spinner />} />
+            <CardCom icon={<img width={27} src="https://cdn-icons-png.flaticon.com/512/2361/2361607.png"  />} title={"Average Order Value"} info={'The average amount spent by your customers on XIRCLS solutions.'} data={!isLoading ? dashData?.average_order_value : <Spinner />} />
           </Col>
           <Col md={6} onClick={() => navigate('/merchant/affiliate/all_clicks/')} style={{ cursor: "pointer" }}>
-            <CardCom icon={<img width={27} src="https://cdn-icons-png.flaticon.com/512/181/181838.png"  />} title={"Clicks"} info={'The number of times visitors clicked on your affiliate referral link/s'} data={!isLoading ? walletData.clicks_count : <Spinner />} />
+            <CardCom icon={<img width={27} src="https://cdn-icons-png.flaticon.com/512/181/181838.png"  />} title={"Clicks"} info={'The number of times visitors clicked on your affiliate referral link/s.'} data={!isLoading ? walletData.clicks_count : <Spinner />} />
           </Col>
           <Col md={6} onClick={() => navigate('/merchant/affiliate/all_leads/')} style={{ cursor: "pointer" }}>
-            <CardCom icon={<UserPlus size={27} />} title={"Leads"} info={'Potential customers who’ve signed up but haven’t made a purchase'} data={!isLoading ? walletData.leads_count : <Spinner />} />
+            <CardCom icon={<UserPlus size={27} />} title={"Leads"} info={'Potential customers who’ve signed up but haven’t made a purchase.'} data={!isLoading ? walletData.leads_count : <Spinner />} />
           </Col>
-          <Col md={6} onClick={() => navigate('/merchant/affiliate/conversion_rate/')} style={{ cursor: "pointer" }}>
-            <CardCom icon={<SiConvertio size={27} />} title={"Conversion Rate"} info={'The percentage of clicks on your affiliate referral link/s that converted into purchases on XIRCLS'} data={!isLoading ? dashData.conversion_rate : <Spinner />} />
+          <Col md={6}  style={{ cursor: "pointer" }}>
+            <CardCom icon={<SiConvertio size={27} />} title={"Conversion Rate"} info={'The percentage of clicks on your affiliate referral link/s that converted into purchases on XIRCLS.'} data={!isLoading ? dashData.conversion_rate : <Spinner />} />
           </Col>
 
           <Col md={12}>
@@ -354,10 +354,10 @@ const Affiliate = () => {
           <ModalBody >
             <div className="d-flex justify-content-start gap-1 align-items-start" >
               <label>Available Earnings</label>
-              <h4>₹{cardData?.wallet_data?.withdrawable}</h4>
+              <h4>${cardData?.wallet_data?.withdrawable}</h4>
             </div>
             {/* <div className="d-flex justify-content-center align-items-center gap-1 mt-2">
-              <label>Requited Withdrawn Amount :</label><h4 style={{ display: "contents" }}>₹</h4>
+              <label>Requited Withdrawn Amount :</label><h4 style={{ display: "contents" }}>$</h4>
               <Input type="text" className="w-25 h-25" value={inputChange.withdraw_amount} onChange={(e) => { setInputChange({ ...inputChange, withdraw_amount: e.target.value }) }} />
             </div> */}
 
@@ -426,7 +426,7 @@ const Affiliate = () => {
                 <h4>{cardData?.wallet_data?.withdrawable}</h4>
               </div>
               <div className="d-flex justify-content-center align-items-center gap-1 mt-2">
-                <label>Requited Withdrawn Amount :</label><h4 style={{ display: "contents" }}>₹</h4>
+                <label>Requited Withdrawn Amount :</label><h4 style={{ display: "contents" }}>$</h4>
                 <Input type="text" className="w-25 h-25" value={inputChange.withdraw_amount} onChange={(e) => { setInputChange({ ...inputChange, withdraw_amount: e.target.value }) }} />
               </div>
               {
