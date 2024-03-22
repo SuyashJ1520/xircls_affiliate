@@ -97,7 +97,13 @@ const Dash_Payout = () => {
       selector: row => (row.payout_admin_remark ? row.payout_admin_remark : <div className='text-center w-100'>-</div>)
     },
     {
-      name: <>Withdrawn<br />Amount</>,
+      name: 'Status',
+      sortable: true,
+      minWidth: '200px',
+      selector: row => (row.payout_admin_remark ? row.payout_admin_remark : <div className='text-center w-100'>-</div>)
+    },
+    {
+      name: 'Payout Amount',
       sortable: true,
       minWidth: '100px',
       selector: row => (row.payout_amount ? row.payout_amount : <div className='text-center w-100'>0</div>)

@@ -9,9 +9,10 @@ import { useNavigate } from "react-router-dom"
 import { setToken } from "../../assets/auth/auth"
 import { ChevronLeft } from "react-feather"
 
-const LoginOTP = ({ email, setShowOTP }) => {
+const ForgetOTP = ({ email, setShowOTP }) => {
     const [otp, setOTP] = useState(['', '', '', '', ''])
     const [loading, setLoading] = useState(false)
+    const [usePage, setPage] = useState(true)
     const [time, setTime] = useState(300)
     const [ResendBtn, setResendBtn] = useState(false)
     const navigate = useNavigate()
@@ -90,30 +91,20 @@ const LoginOTP = ({ email, setShowOTP }) => {
         formData.append("otp", otp.join(''))
         formData.append("email", email)
         setLoading(true)
-        postReq("two_step_verification", formData, affiliateURL)
-            .then((res) => {
-                if (res.error) {
-                    toast.error(res.error)
-                } else if (res?.data.token) {
-                    const tokenValue = JSON.stringify(res?.data.token)
-                    setToken(tokenValue)
-                    toast.success('Login successful. Welcome!')
-                    navigate("/merchant/affiliate/dashboard/")
-
-                }
-                console.log("resss", res)
-            })
-            .catch((err) => {
-                if (err.response.status === 404) {
-                    toast.error(err.response.data.error)
-                } else {
-                    toast.error("Server Error!")
-                }
-                // console.log(err.response.data.error)
-            })
-            .finally(() => {
-                setLoading(false)
-            })
+        setPage(true)
+        // postReq("two_step_verification", formData, affiliateURL)
+        //     .then((res) => {
+        //     })
+        //     .catch((err) => {
+        //         if (err.response.status === 404) {
+        //             toast.error(err.response.data.error)
+        //         } else {
+        //             toast.error("Server Error!")
+        //         }
+        //     })
+        //     .finally(() => {
+        //         setLoading(false)
+        //     })
 
     }
 
@@ -126,7 +117,10 @@ const LoginOTP = ({ email, setShowOTP }) => {
             {loading ? <FrontBaseLoader /> : ''}
             <div className="xircls_front_base products">
                 <Container className='login pt-5 pb-3 d-flex justify-content-center'>
-                    <Row className="w-100">
+                   
+                   {
+                    
+                   } <div className="w-100">
                         <div className='mx-auto' style={{ width: `666px`, maxWidth: `95%` }}>
                             <div className="front_border position-relative " style={{ border: "1px solid #ebe9f1", padding: "3rem" }}>
                                 <button className="btn btn-sm position-absolute top-0 start-0 mt-1 ms-1" onClick={() => setShowOTP(false)}><ChevronLeft size={15} /> Back </button>
@@ -159,11 +153,11 @@ const LoginOTP = ({ email, setShowOTP }) => {
                                 </div>
                             </div>
                         </div>
-                    </Row>
+                    </div>
                 </Container>
             </div>
         </>
     )
 }
 
-export default LoginOTP
+export default ForgetOTP

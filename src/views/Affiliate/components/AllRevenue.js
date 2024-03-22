@@ -50,35 +50,48 @@ const AllRevenue = () => {
       selector: row => moment(row.created_at ? row.created_at : "").format('HH:mm:ss')
     },
     {
-      name: 'Name',
+      name: 'Merchant Name',
       sortable: true,
       minWidth: '100px',
-      selector: row => (row.user.firstname && row.user.lastname ? `${row.user.firstname} ${row.user.lastname}` : <div className='text-center w-100'>-</div>)
+      selector: row => (row?.user?.firstname && row?.user?.lastname ? `${row?.user?.firstname} ${row?.user?.lastname}` : <div className='text-center w-100'>-</div>)
     },
     {
       name: 'Email',
       sortable: true,
       minWidth: '200px',
-      selector: row => (row.user.personal_email ? (<div title={row.user.personal_email} className='text-center w-100'> {row.user.personal_email}</div>) : <div className='text-center w-100'>-</div>
+      selector: row => (row?.user?.personal_email ? (<div title={row?.user?.personal_email} className='text-center w-100'> {row?.user?.personal_email}</div>) : <div className='text-center w-100'>-</div>
       )
     },
     {
-      name: 'Phone no',
+      name: 'Mobile no',
       sortable: true,
       minWidth: '100px',
-      selector: row => (row.user.phonecode && row.user.phoneno ? (<div title={`${row.user.phonecode} ${row.user.phoneno}`} className='text-center w-100'>{`${row.user.phonecode} ${row.user.phoneno}`}</div>) : <div className='text-center w-100'>-</div>
+      selector: row => (row?.user?.phonecode && row?.user?.phoneno ? (<div title={`${row?.user?.phonecode} ${row?.user?.phoneno}`} className='text-center w-100'>{`${row?.user?.phonecode} ${row?.user?.phoneno}`}</div>) : <div className='text-center w-100'>-</div>
+      )
+    },
+    {
+      name: 'Company',
+      sortable: true,
+      minWidth: '100px',
+      selector: row => (row.company && row.company ? (<div title={`${row.company} ${row.company}`} className='text-center w-100'>{`${row.company} ${row.company}`}</div>) : <div className='text-center w-100'>-</div>
       )
     },
     {
       name: 'App',
       sortable: true,
       minWidth: '100px',
-      selector: row => (row?.product?.name ? row?.product?.name : <div className='text-center w-100'>-</div>)
+      selector: row => (row.product_name ? row.product_name : <div className='text-center w-100'>-</div>)
     },
     {
-      name: 'Commission',
+      name: 'Sales Price',
       sortable: true,
       minWidth: '100px',
+      selector: row => (row.product_name ? row.product_name : <div className='text-center w-100'>-</div>)
+    },
+    {
+      name: 'Commission Earned',
+      sortable: true,
+      minWidth: '80px',
       selector: row => (row.amount ? row.amount : <div className='text-center w-100'>0</div>)
     }
   ]

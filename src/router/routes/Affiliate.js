@@ -32,6 +32,7 @@ import Dash_Payout from '../../views/Affiliate/components/Dash_Payout'
 import OrderValue from '../../views/Affiliate/components/OrderValue'
 import Conversion_Rate from '../../views/Affiliate/components/Conversion_Rate'
 import VerifyEmail from '../../views/Affiliate/VerifyEmail'
+import ForgetPassword from '../../views/Affiliate/ForgetPassword'
 const Apps = lazy(() => import('../../views/Apps/Apps'))
 
 const MerchantHome = lazy(() => import('../../views/Apps/Home'))
@@ -176,6 +177,14 @@ const Affiliate_Routes = [
     {
         path: '/verify-email/:id',
         element: <VerifyEmail />,
+        meta: {
+            layout: 'fullWidthLayout',
+            publicRoute: true
+          }
+    },
+    {
+        path: '/forget-password',
+        element: <ForgetPassword />,
         meta: {
             layout: 'fullWidthLayout',
             publicRoute: true

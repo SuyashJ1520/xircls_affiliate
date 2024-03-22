@@ -67,8 +67,8 @@ const LoginPage = () => {
                 }
             })
             .catch((err) => {
-                toast.error(err.response.data.message)
-                console.log(err.response.data.message)
+                toast.error(err.response.data.error)
+                console.log(err)
                 setLoading(false)
             })
 
@@ -116,7 +116,7 @@ const LoginPage = () => {
                                             <button type="button" disabled={loading} onClick={() => loginButtonHandler()} id='login-btn' className="btn bg-black text-white me-1 form-btn text-light">
                                                 LOGIN
                                             </button>
-                                            <a href="#" id='f-password' className='mx-2'>Forgot password?</a>
+                                            {/* <Link to="/forget-password" id='f-password' className='mx-2'>Forgot password?</Link> */}
                                         </div>
                                     </Form>
                                     <p className="sixth-font font-size-sm fs-6 mt-2">

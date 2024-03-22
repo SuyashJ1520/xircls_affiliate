@@ -230,7 +230,7 @@ return (
               <div className="v-card-item">
                 <div className="v-card-item__content">
                   <div className='d-flex justify-content-between '>
-                    <div className="v-card-title h5">Two-step verification on</div>
+                    <div className="v-card-title h5">Two-step verification </div>
                     <div class="form-check form-switch">
                       <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" checked={UserData?.is_two_verification} onChange={updateCheck} />
                     </div>
@@ -245,7 +245,7 @@ return (
               </div>
               <div className='mt-1'>
                 <small className="text-base ">
-                  Two-factor authentication adds an additional layer of security to your account by reqiuiring more than just a password to log in.
+                  Two-factor authentication adds an additional layer of security to your account by requiring more than just a password to log in.
                   <div className='text-primary'>Learn more.</div>
                 </small>
               </div>

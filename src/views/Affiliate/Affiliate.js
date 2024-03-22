@@ -1,12 +1,14 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react"
 import toast from "react-hot-toast"
-import { IoWalletOutline } from "react-icons/io5"
+import { SiConvertio } from 'react-icons/si'
 import { Card, CardBody, Col, Input, InputGroup, Modal, ModalBody, Row } from "reactstrap"
 import "../Affiliate/affiliate.css"
+
+// import { SiConvertio } from "react-icons/si"
 import CardCom from "../Components/SuperLeadz/CardCom"
 // import axios from "axios"
-import { Copy, DollarSign } from "react-feather"
+import { Copy, UserPlus, Users } from "react-feather"
 import { useNavigate } from "react-router-dom"
 import Select from 'react-select'
 import { affiliateURL, getReq, postReq } from "../../assets/auth/jwtService"
@@ -242,10 +244,10 @@ const Affiliate = () => {
 
             <div className=" px-1  d-flex gap-1 justify-content-center  align-items-center ">
              <h4 className="m-0">Wallet Balance : ₹ {cardData?.wallet_data?.withdrawable}</h4>
+            <button className="btn btn-sm btn-primary" onClick={() => setIsModal2(!isModal2)}>Withdraw</button>
             </div>
           <div className="d-flex align-items-center gap-1">
             <button className="btn btn-primary-main w-100" onClick={() => setIsModal(!isModal)}>Affiliate Link</button>
-            <button className="btn btn-primary" onClick={() => setIsModal2(!isModal2)}>Withdraw</button>
 
             {/* <Link to='/merchant/create_support/' className='shedule_btn btn btn-sm btn-primary btnCustom text-nowrap' title="Support"> */}
             {/* <AiFillPhone size={14} style={{ marginBottom: "2px" }} /> */}
@@ -263,31 +265,31 @@ const Affiliate = () => {
       <div className={`position-relative`}>
         <Row className="match-height">
           <Col md={6} onClick={() => navigate('/merchant/affiliate/all_revenue/')} style={{ cursor: "pointer" }}>
-            <CardCom icon={<DollarSign size={27} />} title={"Total Sales"} info={'The total sales generated from your customers'} data={!isLoading ? `₹${cardData?.wallet_data?.total_revenue ?? 0}` : <Spinner />} />
+            <CardCom icon={<img width={27} src="https://cdn-icons-png.flaticon.com/512/1773/1773345.png"  />} title={"Total Sales"} info={'The total sales generated from your customers'} data={!isLoading ? `₹${cardData?.wallet_data?.total_revenue ?? 0}` : <Spinner />} />
           </Col>
           <Col md={6} onClick={() => navigate('/merchant/affiliate/all_earnings/')} style={{ cursor: "pointer" }}>
-            <CardCom icon={<DollarSign size={27} />} title={"Total Earnings"} info={'Your total income from affiliate commissions on sales, including accrued commissions that have not yet been paid out'} data={!isLoading ? `₹${cardData?.wallet_data?.total ?? 0}` : <Spinner />} />
+            <CardCom icon={<img width={27} src="https://cdn2.iconfinder.com/data/icons/thin-money-finance-2/24/thin-1107_money_coins-256.png"  />} title={"Total Earnings"} info={'Your total income from affiliate commissions on sales, including accrued commissions that have not yet been paid out'} data={!isLoading ? `₹${cardData?.wallet_data?.total ?? 0}` : <Spinner />} />
           </Col>
           <Col md={6} onClick={() => navigate('/merchant/affiliate/dash_payout/')} style={{ cursor: "pointer" }}>
-            <CardCom icon={<DollarSign size={27} />} title={"Payout"} info={'The specific portion of the total earnings that have been paid out to you'} data={!isLoading ? `₹${walletData?.paid_all_time ?? 0}` : <Spinner />} />
+            <CardCom icon={<img width={27} src="https://cdn2.iconfinder.com/data/icons/the-finance/512/payout_2-512.png"  />} title={"Payout"} info={'The specific portion of the total earnings that have been paid out to you'} data={!isLoading ? `₹${Math.round((walletData?.paid_all_time + Number.EPSILON) * 100) / 100 ?? 0}` : <Spinner />} />
           </Col>
           <Col md={6} onClick={() => navigate('/merchant/affiliate/all_withdrawal/')} style={{ cursor: "pointer" }}>
-            <CardCom icon={<DollarSign size={27} />} title={"Pending Payout"} info={'Total amount of commission or earnings accumulated over a specific period but has not yet been paid out'} data={!isLoading ? `₹${cardData?.pending_payouts ?? 0}` : <Spinner />} />
+            <CardCom icon={<img width={27} src="https://cdn2.iconfinder.com/data/icons/the-finance/512/ATM_money-512.png"  />} title={"Pending Payout"} info={'Total amount of commission or earnings accumulated over a specific period but has not yet been paid out'} data={!isLoading ? `₹${cardData?.pending_payouts ?? 0}` : <Spinner />} />
           </Col>
           <Col md={6} onClick={() => navigate('/merchant/affiliate/all_customers/')} style={{ cursor: "pointer" }}>
-            <CardCom icon={<DollarSign size={27} />} title={"Customers"} info={'Individuals or entities who have clicked on your affiliate referral link/s and completed at least one purchase on XIRCLS, resulting in a commission for you'} data={!isLoading ? walletData.customers_count : <Spinner />} />
+            <CardCom icon={<Users size={27} />} title={"Customers"} info={'Individuals or entities who have clicked on your affiliate referral link/s and completed at least one purchase on XIRCLS, resulting in a commission for you'} data={!isLoading ? walletData.customers_count : <Spinner />} />
           </Col>
           <Col md={6} onClick={() => navigate('/merchant/affiliate/order_value/')} style={{ cursor: "pointer" }}>
-            <CardCom icon={<DollarSign size={27} />} title={"Average Order Value"} info={'The average amount spent by your customers on XIRCLS solutions'} data={!isLoading ? dashData?.average_order_value : <Spinner />} />
+            <CardCom icon={<img width={27} src="https://cdn-icons-png.flaticon.com/512/2361/2361607.png"  />} title={"Average Order Value"} info={'The average amount spent by your customers on XIRCLS solutions'} data={!isLoading ? dashData?.average_order_value : <Spinner />} />
           </Col>
           <Col md={6} onClick={() => navigate('/merchant/affiliate/all_clicks/')} style={{ cursor: "pointer" }}>
-            <CardCom icon={<DollarSign size={27} />} title={"Clicks"} info={'The number of times visitors clicked on your affiliate referral link/s'} data={!isLoading ? walletData.clicks_count : <Spinner />} />
+            <CardCom icon={<img width={27} src="https://cdn-icons-png.flaticon.com/512/181/181838.png"  />} title={"Clicks"} info={'The number of times visitors clicked on your affiliate referral link/s'} data={!isLoading ? walletData.clicks_count : <Spinner />} />
           </Col>
           <Col md={6} onClick={() => navigate('/merchant/affiliate/all_leads/')} style={{ cursor: "pointer" }}>
-            <CardCom icon={<DollarSign size={27} />} title={"Leads"} info={'Potential customers who’ve signed up but haven’t made a purchase'} data={!isLoading ? walletData.leads_count : <Spinner />} />
+            <CardCom icon={<UserPlus size={27} />} title={"Leads"} info={'Potential customers who’ve signed up but haven’t made a purchase'} data={!isLoading ? walletData.leads_count : <Spinner />} />
           </Col>
           <Col md={6} onClick={() => navigate('/merchant/affiliate/conversion_rate/')} style={{ cursor: "pointer" }}>
-            <CardCom icon={<DollarSign size={27} />} title={"Conversion Rate"} info={'The percentage of clicks on your affiliate referral link/s that converted into purchases on XIRCLS'} data={!isLoading ? dashData.conversion_rate : <Spinner />} />
+            <CardCom icon={<SiConvertio size={27} />} title={"Conversion Rate"} info={'The percentage of clicks on your affiliate referral link/s that converted into purchases on XIRCLS'} data={!isLoading ? dashData.conversion_rate : <Spinner />} />
           </Col>
 
           <Col md={12}>
