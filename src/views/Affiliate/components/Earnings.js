@@ -50,7 +50,7 @@ const Earnings = () => {
                 </Col>
 
                 <Col md={6}  style={{ cursor: "pointer" }}>
-                    <CardCom icon={<DollarSign size={27} />} title={"Unpaid Commission"} data={!isLoading ? `$${cardData.wallet_data?.withdrawable}` : <Spinner />} />
+                    <CardCom icon={<DollarSign size={27} />} title={"Unpaid Commission"} data={!isLoading ? `$${defaultFormatDecimal(cardData.wallet_data?.withdrawable)}` : <Spinner />} />
                 </Col>
             </Row>
             <AllRevenue title="Total Revenue" />
