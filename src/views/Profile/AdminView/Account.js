@@ -1,12 +1,12 @@
 /* eslint-disable no-unused-vars */
 import { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
-import { Card, CardBody, Col, Row, Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
-import { affiliateURL, deleteReq, getReq, ngrokURL, postReq, putReq } from '../../../assets/auth/jwtService'
-import Spinner from '../../Components/DataTable/Spinner'
-import Select from 'react-select'
 import { BsBank } from "react-icons/bs"
 import { FaPaypal } from "react-icons/fa"
+import Select from 'react-select'
+import { Button, Card, CardBody, Col, Modal, ModalFooter, ModalHeader, Row } from 'reactstrap'
+import { affiliateURL, deleteReq, getReq, postReq, putReq } from '../../../assets/auth/jwtService'
+import Spinner from '../../Components/DataTable/Spinner'
 const Account = () => {
   const [modal, setModal] = useState(false)
   const [usePage, setPage] = useState(1)

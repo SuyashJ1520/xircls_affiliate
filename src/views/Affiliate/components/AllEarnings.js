@@ -1,8 +1,8 @@
-import moment from 'moment'
 import React, { useEffect, useState } from 'react'
 import { Card, CardBody, Col, Row } from 'reactstrap'
 import { affiliateURL, getReq } from '../../../assets/auth/jwtService'
 import ComTable from '../../Components/DataTable/ComTable'
+import { defaultFormatDate, defaultFormatDecimal, defaultFormatTime } from '../../Validator'
 
 const AllEarnings = () => {
   const [searchFilter, setSearchFilter] = useState("")
@@ -31,13 +31,8 @@ const AllEarnings = () => {
       name: 'Date',
       sortable: true,
       minWidth: '100px',
-      selector: row => moment(row.created_at ? row.created_at : "").format('YYYY-MM-DD')
-    },
-    {
-      name: 'Time',
-      sortable: true,
-      minWidth: '100px',
-      selector: row => moment(row.created_at ? row.created_at : "").format('HH:mm:ss')
+      selector: row => `${defaultFormatDate(row.created_at)}, ${defaultFormatTime(row.created_at)}`
+      // selector: row => moment(row.created_at ? row.created_at : "").format('YYYY-MM-DD')
     },
     {
       name: 'Merchant Name',
@@ -82,7 +77,8 @@ const AllEarnings = () => {
       name: 'Commission Earned',
       sortable: true,
       minWidth: '80px',
-      selector: row => (row.amount ? row.amount : <div className='text-center w-100'>0</div>)
+      selector: row => `$${defaultFormatDecimal(row.amount)}`
+      // selector: row => (row.amount ? row.amount : <div className='text-center w-100'>0</div>)
     }
   ]
   const defferContent = <>

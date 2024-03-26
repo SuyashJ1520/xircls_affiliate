@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useState } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import toast from "react-hot-toast"
 import { SiConvertio } from 'react-icons/si'
 import { Card, CardBody, Col, Input, InputGroup, Modal, ModalBody, Row } from "reactstrap"
@@ -15,9 +15,14 @@ import { affiliateURL, getReq, postReq } from "../../assets/auth/jwtService"
 // import axios from "axios"
 import Spinner from "@src/views/Components/DataTable/Spinner.js"
 import FrontBaseLoader from "../Components/Loader/Loader"
+import { defaultFormatDecimal } from "../Validator"
 import AllEarnings from "./components/AllEarnings"
+import { PermissionProvider } from "../../Helper/Context"
 
 const Affiliate = () => {
+  // console.log()
+  const { userPermission } = useContext(PermissionProvider)
+console.log(userPermission)
   const [apiLoader, setApiLoader] = useState(false)
   const [tableData, setTableData] = useState([])
   const [cardData, setCardData] = useState({})
@@ -35,7 +40,7 @@ const Affiliate = () => {
 
   const [productSlug, setProductSlug] = useState("Infiniti")
 
-  const [selectPage, setSelectPage] = useState("infiniti")
+  const [selectPage, setSelectPage] = useState("home")
 
   const navigate = useNavigate()
 
@@ -158,7 +163,7 @@ const Affiliate = () => {
           customers_count: res?.data?.customers_count ?? "0",
           leads_count: res?.data?.leads_count ?? "0",
           paid_all_time: res?.data?.paid_all_time ?? "0",
-          payout_count: res?.data?.payout_count ??  "0"
+          payout_count: res?.data?.payout_count ?? "0"
         }
         setWalletData(() => ({
           ...updateData
@@ -174,14 +179,14 @@ const Affiliate = () => {
   }, [])
 
   const getData = () => {
-    getReq("affiliate_dashboard", "", affiliateURL)
-      .then((data) => {
-        console.log({ data }, "wassup dashboard")
-        setTableData(data.data)
-      })
-      .catch((error) => {
-        console.log({ error }, "error wassup dashboard")
-      })
+    // getReq("affiliate_dashboard", "", affiliateURL)
+    //   .then((data) => {
+    //     console.log({ data }, "wassup dashboard")
+    //     setTableData(data.data)
+    //   })
+    //   .catch((error) => {
+    //     console.log({ error }, "error wassup dashboard")
+    //   })
 
     getReq("affiliate_wallet", "", affiliateURL)
       .then((data) => {
@@ -201,9 +206,10 @@ const Affiliate = () => {
   }, [])
 
   const withdrawReq = () => {
-    if (!withdraw_amount_error_fun()) {
-      return false
-    }
+    // if (!withdraw_amount_error_fun()) {
+    //   toast.error("Enter valid Amount!")
+    //   return false
+    // }
 
     setIsModal2(false)
     setApiLoader(true)
@@ -215,10 +221,12 @@ const Affiliate = () => {
       .then((res) => {
         console.log(res)
         getData()
-        setApiLoader(false)
+        toast.success("Your payout request is being processed. You will be notified once the funds have been transferred to your account.")
       })
       .catch((err) => {
         console.log(err)
+        toast.error("Something went wrong!")
+      }).finally(() => {
         setApiLoader(false)
       })
   }
@@ -242,10 +250,10 @@ const Affiliate = () => {
           <h3 className="m-0">Dashboard</h3>
 
 
-            <div className=" px-1  d-flex gap-1 justify-content-center  align-items-center ">
-             <h4 className="m-0">Wallet Balance : $ {cardData?.wallet_data?.withdrawable}</h4>
+          <div className=" px-1  d-flex gap-1 justify-content-center  align-items-center ">
+            <h4 className="m-0">Wallet Balance : $ {defaultFormatDecimal(cardData?.wallet_data?.withdrawable)}</h4>
             <button className="btn btn-sm btn-primary" onClick={() => setIsModal2(!isModal2)}>Withdraw</button>
-            </div>
+          </div>
           <div className="d-flex align-items-center gap-1">
             <button className="btn btn-primary-main w-100" onClick={() => setIsModal(!isModal)}>Affiliate Link</button>
 
@@ -265,31 +273,32 @@ const Affiliate = () => {
       <div className={`position-relative`}>
         <Row className="match-height">
           <Col md={6} onClick={() => navigate('/merchant/affiliate/all_revenue/')} style={{ cursor: "pointer" }}>
-            <CardCom icon={<img width={27} src="https://cdn-icons-png.flaticon.com/512/1773/1773345.png"  />} title={"Total Sales"} info={'The total sales generated from your customers'} data={!isLoading ? `$${cardData?.wallet_data?.total_revenue ?? 0}` : <Spinner />} />
+            <CardCom icon={<img width={27} src="https://cdn-icons-png.flaticon.com/512/1773/1773345.png" />} title={"Total Sales"} info={'The total sales generated from your customers'} data={!isLoading ? `$${defaultFormatDecimal(cardData?.wallet_data?.total_revenue)}` : <Spinner />} />
           </Col>
           <Col md={6} onClick={() => navigate('/merchant/affiliate/all_earnings/')} style={{ cursor: "pointer" }}>
-            <CardCom icon={<img width={27} src="https://cdn2.iconfinder.com/data/icons/thin-money-finance-2/24/thin-1107_money_coins-256.png"  />} title={"Total Earnings"} info={"Your total income from affiliate commissions on sales, including accrued commissions that have not yet been paid out."}  data={!isLoading ? `$${cardData?.wallet_data?.total ?? 0}` : <Spinner />} />
+            <CardCom icon={<img width={27} src="https://cdn2.iconfinder.com/data/icons/thin-money-finance-2/24/thin-1107_money_coins-256.png" />} title={"Total Earnings"} info={"Your total income from affiliate commissions on sales, including accrued commissions that have not yet been paid out."} data={!isLoading ? `$${defaultFormatDecimal(cardData?.wallet_data?.total)}` : <Spinner />} />
           </Col>
           <Col md={6} onClick={() => navigate('/merchant/affiliate/dash_payout/')} style={{ cursor: "pointer" }}>
-            <CardCom icon={<img width={27} src="https://cdn2.iconfinder.com/data/icons/the-finance/512/payout_2-512.png"  />} title={"Payout"} info={'The specific portion of the total earnings that have been paid out to you.'} data={!isLoading ? `$${Math.round((walletData?.paid_all_time + Number.EPSILON) * 100) / 100 ?? 0}` : <Spinner />} />
+            {/* <CardCom icon={<img width={27} src="https://cdn2.iconfinder.com/data/icons/the-finance/512/payout_2-512.png"  />} title={"Payout"} info={'The specific portion of the total earnings that have been paid out to you.'} data={!isLoading ? `$${Math.round((walletData?.paid_all_time + Number.EPSILON) * 100) / 100 ?? 0}` : <Spinner />} /> */}
+            <CardCom icon={<img width={27} src="https://cdn2.iconfinder.com/data/icons/the-finance/512/payout_2-512.png" />} title={"Payout"} info={'The specific portion of the total earnings that have been paid out to you.'} data={!isLoading ? `$${defaultFormatDecimal(walletData?.paid_all_time)}` : <Spinner />} />
           </Col>
           <Col md={6} onClick={() => navigate('/merchant/affiliate/all_withdrawal/')} style={{ cursor: "pointer" }}>
-            <CardCom icon={<img width={27} src="https://cdn2.iconfinder.com/data/icons/the-finance/512/ATM_money-512.png"  />} title={"Pending Payout"} info={'Total amount of commission or earnings accumulated over a specific period but has not yet been paid out.'} data={!isLoading ? `$${cardData?.pending_payouts ?? 0}` : <Spinner />} />
+            <CardCom icon={<img width={27} src="https://cdn2.iconfinder.com/data/icons/the-finance/512/ATM_money-512.png" />} title={"Pending Payout"} info={'Total amount of commission or earnings accumulated over a specific period but has not yet been paid out.'} data={!isLoading ? `$${defaultFormatDecimal(cardData?.pending_payouts)}` : <Spinner />} />
           </Col>
           <Col md={6} onClick={() => navigate('/merchant/affiliate/all_customers/')} style={{ cursor: "pointer" }}>
             <CardCom icon={<Users size={27} />} title={"Customers"} info={'Individuals or entities who have clicked on your affiliate referral link/s and completed at least one purchase on XIRCLS, resulting in a commission for you.'} data={!isLoading ? walletData.customers_count : <Spinner />} />
           </Col>
           <Col md={6} onClick={() => navigate('/merchant/affiliate/order_value/')} style={{ cursor: "pointer" }}>
-            <CardCom icon={<img width={27} src="https://cdn-icons-png.flaticon.com/512/2361/2361607.png"  />} title={"Average Order Value"} info={'The average amount spent by your customers on XIRCLS solutions.'} data={!isLoading ? dashData?.average_order_value : <Spinner />} />
+            <CardCom icon={<img width={27} src="https://cdn-icons-png.flaticon.com/512/2361/2361607.png" />} title={"Average Order Value"} info={'The average amount spent by your customers on XIRCLS solutions.'} data={!isLoading ? `$${defaultFormatDecimal(cardData?.average_order_value)}` : <Spinner />} />
           </Col>
           <Col md={6} onClick={() => navigate('/merchant/affiliate/all_clicks/')} style={{ cursor: "pointer" }}>
-            <CardCom icon={<img width={27} src="https://cdn-icons-png.flaticon.com/512/181/181838.png"  />} title={"Clicks"} info={'The number of times visitors clicked on your affiliate referral link/s.'} data={!isLoading ? walletData.clicks_count : <Spinner />} />
+            <CardCom icon={<img width={27} src="https://cdn-icons-png.flaticon.com/512/181/181838.png" />} title={"Clicks"} info={'The number of times visitors clicked on your affiliate referral link/s.'} data={!isLoading ? walletData.clicks_count : <Spinner />} />
           </Col>
           <Col md={6} onClick={() => navigate('/merchant/affiliate/all_leads/')} style={{ cursor: "pointer" }}>
             <CardCom icon={<UserPlus size={27} />} title={"Leads"} info={'Potential customers who’ve signed up but haven’t made a purchase.'} data={!isLoading ? walletData.leads_count : <Spinner />} />
           </Col>
-          <Col md={6}  style={{ cursor: "pointer" }}>
-            <CardCom icon={<SiConvertio size={27} />} title={"Conversion Rate"} info={'The percentage of clicks on your affiliate referral link/s that converted into purchases on XIRCLS.'} data={!isLoading ? dashData.conversion_rate : <Spinner />} />
+          <Col md={6} style={{ cursor: "pointer" }}>
+            <CardCom icon={<SiConvertio size={27} />} title={"Conversion Rate"} info={'The percentage of clicks on your affiliate referral link/s that converted into purchases on XIRCLS.'} data={!isLoading ? `$${defaultFormatDecimal(dashData?.conversion_rate)}` : <Spinner />} />
           </Col>
 
           <Col md={12}>
@@ -347,101 +356,52 @@ const Affiliate = () => {
           size="sm"
           onClosed={() => setInputChange({ withdraw_amount: "", withdraw_remark: "" })}
         >
-          <div className="d-flex justify-content-center p-2">
+          <div className="d-flex justify-content-center p-2 border-bottom">
             <h4 className="m-0">Request a Payout</h4>
             <button onClick={() => setIsModal2(!isModal2)} type="button" class="btn-close" aria-label="Close" style={{ position: "absolute", right: "-7px", top: "-7px", backgroundColor: "white", color: "black", opacity: "1", padding: "10px", boxShadow: "0 5px 20px 0 rgba(34, 41, 47, 0.1)" }}></button>
           </div>
           <ModalBody >
-            <div className="d-flex justify-content-start gap-1 align-items-start" >
+            <div className="d-flex justify-content-start gap-1 align-items-start py-2" >
               <label>Available Earnings</label>
-              <h4>${cardData?.wallet_data?.withdrawable}</h4>
+              <h4>${defaultFormatDecimal(cardData?.wallet_data?.withdrawable)}</h4>
             </div>
-            {/* <div className="d-flex justify-content-center align-items-center gap-1 mt-2">
-              <label>Requited Withdrawn Amount :</label><h4 style={{ display: "contents" }}>$</h4>
-              <Input type="text" className="w-25 h-25" value={inputChange.withdraw_amount} onChange={(e) => { setInputChange({ ...inputChange, withdraw_amount: e.target.value }) }} />
-            </div> */}
 
-            <div className="mt-2">
+
+            <div className="mt-1">
               <label htmlFor="basicDetails-email">
                 Withdrawal Amount
               </label>
-              <input
+              <div class="input-group m">
+                <span class="input-group-text" id="basic-addon1">$</span>
+                <input type="number" class="form-control"
                 placeholder="Required Withdrawn Amount"
-                type='text'
                 id='basicDetails-email'
                 name='withdraw_amount'
                 className="form-control"
-                value={`$${inputChange.withdraw_amount}`}
+                value={inputChange.withdraw_amount}
                 onChange={(e) => {
-                  const valueWithoutDollar = e.target.value.replace(/\$/g, '')
-                  setInputChange({ ...inputChange, withdraw_amount: valueWithoutDollar })
-                }}
-                style={{ marginTop: "5px" }}
-              />
-            </div>
-
-
-            {/* {
-                inputChange.withdraw_amount > cardData?.wallet_data?.withdrawable ? (
-                  <div className="mt-1">
-                    <p className="text-danger text-center">Requested amount is more than withdrawable amount</p>
-                  </div>
-                ) : ""
-              } */}
+                  setInputChange({ ...inputChange, withdraw_amount: e.target.value })
+                }} />
+              </div>
             {
               !withdraw_amount_error.isValid && <p className="text-danger">{withdraw_amount_error.msg}</p>
             }
-            {/* <div className="d-flex justify-content-center align-items-center gap-1 mt-2">
-              <label>Remark :</label>
-              <Input type="text" className="w-25 h-25" value={inputChange.withdraw_remark} onChange={withdraw_amt_chnage} />
-            </div> */}
+            </div>
 
             <div className="mt-2">
               <label htmlFor="basicDetails-email">
                 Note
               </label>
-              <input placeholder="Note" type='text' id='basicDetails-email' name='email' className="form-control" value={inputChange.withdraw_remark} onChange={withdraw_amt_chnage} style={{ marginTop: "5px" }} />
+              <input placeholder="e.g. Feb 15 payout request" type='text' id='basicDetails-email' name='email' className="form-control" value={inputChange.withdraw_remark} onChange={withdraw_amt_chnage} style={{ marginTop: "5px" }} />
             </div>
 
-            <div className="d-flex justify-content-center align-items-center mt-2">
-              <button className="btn btn-primary-main" onClick={() => withdrawReq()}>Submit</button>
+            <div className="d-flex justify-content-end  mt-3 gap-2">
+              <button className="btn" onClick={() => setIsModal2(false)}>Cancel</button>
+              <button className="btn btn-primary-main" onClick={withdrawReq}>Request</button>
             </div>
           </ModalBody>
         </Modal>
 
-        {/* //-------- */}
-        {/* <Modal className='modal-dialog-centered ' isOpen={isModal2}>
-          <div className="d-flex justify-content-end me-1" >
-            <a onClick={() => setIsModal2(!isModal2)}>
-              <X size={'20px'} />
-            </a>
-          </div>
-          <div className="py-2">
-            <div class="modal-header d-flex justify-content-center align-items-center">
-              <h4 class="modal-title m-0">Withdraw</h4>
-            </div>
-            <ModalBody >
-              <div className="d-flex justify-content-center gap-1" >
-                <label>Withdrawable Amount :</label>
-                <h4>{cardData?.wallet_data?.withdrawable}</h4>
-              </div>
-              <div className="d-flex justify-content-center align-items-center gap-1 mt-2">
-                <label>Requited Withdrawn Amount :</label><h4 style={{ display: "contents" }}>$</h4>
-                <Input type="text" className="w-25 h-25" value={inputChange.withdraw_amount} onChange={(e) => { setInputChange({ ...inputChange, withdraw_amount: e.target.value }) }} />
-              </div>
-              {
-                !withdraw_amount_error.isValid && <p className="text-danger text-center">{withdraw_amount_error.msg}</p>
-              }
-              <div className="d-flex justify-content-center align-items-center gap-1 mt-2">
-                <label>Remark :</label>
-                <Input type="text" className="w-25 h-25" value={inputChange.withdraw_remark} onChange={withdraw_amt_chnage} />
-              </div>
-              <div className="d-flex justify-content-center align-items-center mt-2">
-                <button className="btn btn-primary-main" onClick={() => withdrawReq()}>Submit</button>
-              </div>
-            </ModalBody>
-          </div>
-        </Modal> */}
       </div>
     </>
   )

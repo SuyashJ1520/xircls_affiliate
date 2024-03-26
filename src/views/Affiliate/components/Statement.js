@@ -1,8 +1,8 @@
-import moment from 'moment'
 import React, {  useState } from 'react'
 import { Card, CardBody, Col, Row } from 'reactstrap'
 import AdvanceServerSide from '../../Components/DataTable/AdvanceServerSide'
 import { postReq, affiliateURL } from '../../../assets/auth/jwtService'
+import { defaultFormatDate, defaultFormatDecimal, defaultFormatTime } from '../../Validator'
 // import { affiliateURL, getReq } from '../../../assets/auth/jwtService'
 
 const Statement = () => {
@@ -33,14 +33,9 @@ const Statement = () => {
       name: 'Date',
       sortable: true,
       minWidth: '100px',
-      selector: row => moment(row.Created_at ? row.Created_at : "").format('YYYY-MM-DD')
+      selector: row => `${defaultFormatDate(row.Created_at)}, ${defaultFormatTime(row.Created_at)}`
     },
-    {
-      name: 'Time',
-      sortable: true,
-      minWidth: '100px',
-      selector: row => moment(row.Created_at ? row.Created_at : "").format('HH:mm:ss')
-    },
+   
     {
       name: 'Transaction ID',
       sortable: true,
@@ -63,7 +58,7 @@ const Statement = () => {
       name: 'Amount',
       sortable: true,
       minWidth: '100px',
-      selector: row => (row?.Amount ?? <div className='text-center w-100'>-</div>)
+      selector: row => `$${defaultFormatDecimal(row?.Amount)}`
     },
     {
       name: 'Type',

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { Card, CardBody, Col, Row } from 'reactstrap'
-import moment from 'moment'
 import ComTable from '../../Components/DataTable/ComTable'
 import { affiliateURL, getReq } from '../../../assets/auth/jwtService'
+import { defaultFormatDate, defaultFormatTime } from '../../Validator'
 
 const AllClicks = () => {
 
@@ -27,7 +27,7 @@ const AllClicks = () => {
       name: 'Created At',
       sortable: true,
       minWidth: '100px',
-      selector: row => moment(row.created_at ? row.created_at : "").format('MMM D, YYYY')
+      selector: row => `${defaultFormatDate(row.created_at)}, ${defaultFormatTime(row.created_at)}`
     },
     {
       name: 'IP Address',

@@ -2,6 +2,7 @@ import toast from "react-hot-toast"
 import $ from "jquery"
 import { PermissionProvider } from "../../Helper/Context"
 import { useContext } from "react"
+import moment from "moment"
 
 export const imageValidation = (e) => {
     const maxSizeKB = 100 //Size in KB
@@ -175,4 +176,41 @@ export function generateRandomString() {
   
     const randomString = randomNumber() + randomLetter() + randomLetter()
     return randomString
+}
+
+export function defaultFormatDate(date) {
+    if (!date) return ''
+    if (date === '') return ''
+    let formatDate
+    try {
+        formatDate = moment(date).format("DD-MM-YYYY")
+    } catch (err) {
+        formatDate = err
+    }
+    return (formatDate)
+}
+
+export function defaultFormatTime(time) {
+    if (!time) return ''
+    if (time === '') return ''
+    let formatTime
+    try {
+        formatTime = moment(time).format('HH:mm:ss')
+    } catch (_) {
+        formatTime = time
+    }
+    return (formatTime)
+
+}
+
+export function defaultFormatDecimal(number) {
+    if (!number) return 0
+    if (number === '') return 0
+    let formatNumber
+    try {
+        formatNumber = Math.round((number + Number.EPSILON) * 100) / 100
+    } catch (_) {
+        formatNumber = number
+    }
+    return formatNumber
 }

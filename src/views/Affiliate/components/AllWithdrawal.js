@@ -1,8 +1,8 @@
-import moment from 'moment'
 import React, { useEffect, useState } from 'react'
 import { Card, CardBody, Col, Row } from 'reactstrap'
 import { affiliateURL, getReq } from '../../../assets/auth/jwtService'
 import ComTable from '../../Components/DataTable/ComTable'
+import { defaultFormatDate, defaultFormatDecimal, defaultFormatTime } from '../../Validator'
 
 const AllWithdrawal = () => {
   const [searchFilter, setSearchFilter] = useState("")
@@ -35,22 +35,15 @@ const AllWithdrawal = () => {
       name: 'Date',
       sortable: true,
       minWidth: '100px',
-      selector: row => moment(row.created_at ? row.created_at : "-").format('YYYY-MM-DD')
-    },
-    {
-      name: 'Time',
-      sortable: true,
-      minWidth: '100px',
-      selector: row => moment(row.created_at ? row.created_at : "-").format('HH:mm:ss')
+      selector: row => `${defaultFormatDate(row.created_at)}, ${defaultFormatTime(row.created_at)}`
+      // selector: row => moment(row.created_at ? row.created_at : "").format('YYYY-MM-DD')
     },
     {
       name: 'Completed on',
       sortable: true,
       minWidth: '100px',
-      selector: row => {
-        const completedOn = row.completed_on || null
-        return completedOn ? moment(completedOn).format('YYYY-MM-DD') : '-'
-      }
+      selector: row => `${defaultFormatDate(row.completed_on)}, ${defaultFormatTime(row.completed_on)}`
+
     },
     {
       name: 'Remarks',
@@ -62,7 +55,7 @@ const AllWithdrawal = () => {
       name: <>Requested<br />Amount</>,
       sortable: true,
       minWidth: '100px',
-      selector: row => (row.requested_amount ? row.requested_amount : <div className='text-center w-100'>-</div>)
+      selector: row => `$${defaultFormatDecimal(row?.requested_amount)}`
     }
   ]
   const defferContent = <>

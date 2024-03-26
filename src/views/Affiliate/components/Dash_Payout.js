@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { Card, CardBody, Col, Row, DropdownItem, DropdownMenu, DropdownToggle, Modal, ModalBody, UncontrolledButtonDropdown } from 'reactstrap'
-import moment from 'moment'
 // import ComTable from '../Components/DataTable/ComTable'
 // import { useLocation } from 'react-router-dom'
 // import { affiliateURL, getReq, postReq } from '../../assets/auth/jwtService'
@@ -8,6 +7,7 @@ import moment from 'moment'
 // import toast from 'react-hot-toast'
 import { affiliateURL, postReq } from '../../../assets/auth/jwtService'
 import AdvanceServerSide from '../../Components/DataTable/AdvanceServerSide'
+import { defaultFormatDate, defaultFormatDecimal, defaultFormatTime } from '../../Validator'
 // import ComTable from '../../Components/DataTable/ComTable'
 
 const Dash_Payout = () => {
@@ -61,22 +61,14 @@ const Dash_Payout = () => {
       name: 'Date',
       sortable: true,
       minWidth: '100px',
-      selector: row => moment(row.payout_created_at ? row.payout_created_at : "-").format('YYYY-MM-DD')
+      selector: row => `${defaultFormatDate(row.payout_created_at)}, ${defaultFormatTime(row.payout_created_at)}`
+      // selector: row => moment(row.created_at ? row.created_at : "").format('YYYY-MM-DD')
     },
     {
-      name: 'Time',
+      name: 'Completed on',
       sortable: true,
       minWidth: '100px',
-      selector: row => moment(row.payout_created_at ? row.payout_created_at : "-").format('HH:mm:ss')
-    },
-    {
-      name: <>Completed<br />on</>,
-      sortable: true,
-      minWidth: '100px',
-      selector: row => {
-        const completedOn = row.payout_completed_on || null
-        return completedOn ? moment(completedOn).format('YYYY-MM-DD') : '-'
-      }
+      selector: row => `${defaultFormatDate(row.payout_completed_on)}, ${defaultFormatTime(row.payout_completed_on)}`
     },
     {
       name: 'Transaction ID',
@@ -106,7 +98,8 @@ const Dash_Payout = () => {
       name: 'Payout Amount',
       sortable: true,
       minWidth: '100px',
-      selector: row => (row.payout_amount ? row.payout_amount : <div className='text-center w-100'>0</div>)
+      selector: row => `$${defaultFormatDecimal(row.payout_amount)}`
+      // selector: row => (row.payout_amount ? row.payout_amount : <div className='text-center w-100'>0</div>)
     }
 
   ]

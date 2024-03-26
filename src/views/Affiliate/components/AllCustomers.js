@@ -1,8 +1,7 @@
 /* eslint-disable no-unused-vars */
+import moment from 'moment'
 import React, { useEffect, useState } from 'react'
 import { Card, CardBody, Col, Row } from 'reactstrap'
-import moment from 'moment'
-import { useNavigate } from 'react-router-dom'
 import { affiliateURL, postReq } from '../../../assets/auth/jwtService'
 import AdvanceServerSide from '../../Components/DataTable/AdvanceServerSide'
 
@@ -48,6 +47,12 @@ const AllCustomers = () => {
       selector: row => moment(row.customer_created_at ? row.customer_created_at : "").format('HH:mm:ss')
     },
     {
+      name: 'Company Name',
+      sortable: true,
+      minWidth: '100px',
+      selector: row => (row.customer_first_name ? `${row.customer_first_name}` : <div className='text-center w-100'>-</div>)
+    },
+    {
       name: 'Name',
       sortable: true,
       minWidth: '100px',
@@ -61,14 +66,26 @@ const AllCustomers = () => {
       )
     },
     {
-      name: 'Phone',
+      name: 'Mobile No.',
       sortable: true,
       minWidth: '200px',
       selector: row => (row.customer_phoneno ? (<div title={row.customer_phoneno} className='text-center w-100'>{row.customer_phonecode} {row.customer_phoneno}</div>) : <div className='text-center w-100'>-</div>
       )
     },
     {
-      name: 'App',
+      name: 'Customer Since',
+      sortable: true,
+      minWidth: '100px',
+      selector: row => (row.customer_app ? row.customer_app : <div className='text-center w-100'>-</div>)
+    },
+    {
+      name: 'Product',
+      sortable: true,
+      minWidth: '100px',
+      selector: row => (row.customer_app ? row.customer_app : <div className='text-center w-100'>-</div>)
+    },
+    {
+      name: 'Last Purchase Date',
       sortable: true,
       minWidth: '100px',
       selector: row => (row.customer_app ? row.customer_app : <div className='text-center w-100'>-</div>)

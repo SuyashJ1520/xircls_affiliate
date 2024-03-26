@@ -7,8 +7,8 @@ import jwtDecode from "jwt-decode"
 // export const crmURL = "https://crm.xircls.in"
 
 // Live 
-export const ngrokURL = "https://0b43-2402-e280-3d9c-20d-6fb0-19da-f260-f233.ngrok-free.app"
 export const baseURL = "https://api.xircls.com"
+// export const affiliateURL = "https://4d2e-2402-e280-3d9c-20d-a311-d9d5-77ec-6faf.ngrok-free.app"
 export const affiliateURL = "https://api.affiliate.xircls.com"
 export const SuperLeadzBaseURL = "https://apps.xircls.com"
 export const crmURL = "https://crm.xircls.in"
@@ -256,7 +256,7 @@ export const putReq = (path, data, customBaseURL = baseURtrueL, config) => {
 
 
 export const getReq = (path, slug, customBaseURL = baseURL) => {
-    console.log(customBaseURL, "domian")
+    // console.log(customBaseURL, "domian")
     axiosInstance.defaults.baseURL = customBaseURL
     const time = new Date().getTime()
     return slug ? axiosInstance.get(`${configUrl[path]}${slug}&time=${time}`) : axiosInstance.get(`${configUrl[path]}?time=${time}`)

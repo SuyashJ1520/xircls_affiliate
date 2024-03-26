@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { Card, CardBody, Col, Row } from 'reactstrap'
-import moment from 'moment'
 import ComTable from '../../Components/DataTable/ComTable'
 import { affiliateURL, postReq } from '../../../assets/auth/jwtService'
 import AdvanceServerSide from '../../Components/DataTable/AdvanceServerSide'
+import { defaultFormatDate, defaultFormatTime } from '../../Validator'
 
 const AllLeads = () => {
 
@@ -39,13 +39,8 @@ const AllLeads = () => {
       name: 'Date',
       sortable: true,
       minWidth: '100px',
-      selector: row => moment(row.lead_created_at ? row.lead_created_at : "").format('YYYY-MM-DD')
-    },
-    {
-      name: 'Time',
-      sortable: true,
-      minWidth: '100px',
-      selector: row => moment(row.lead_created_at ? row.lead_created_at : "").format('HH:mm:ss')
+      selector: row => `${defaultFormatDate(row.lead_created_at)}, ${defaultFormatTime(row.lead_created_at)}`
+
     },
     {
       name: 'Name',

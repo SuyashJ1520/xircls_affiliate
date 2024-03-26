@@ -7,6 +7,8 @@ import { DollarSign } from 'react-feather'
 import { affiliateURL, getReq } from '../../../assets/auth/jwtService'
 import Spinner from '../../Components/DataTable/Spinner'
 import { json } from 'd3'
+import { defaultFormatDecimal } from '../../Validator'
+import AllRevenue from './AllRevenue'
 
 const Earnings = () => {
     const [cardData, setCardData] = useState({})
@@ -35,23 +37,23 @@ const Earnings = () => {
     return (
         <>
             <Row>
-                <Col md={6} onClick={() => navigate('')} style={{ cursor: "pointer" }}>
-                    <CardCom icon={<DollarSign size={27} />} title={"Commission Amount"} data={!isLoading ? `$${cardData.wallet_data?.total}` : <Spinner />} />
+                <Col md={6}  style={{ cursor: "pointer" }}>
+                    <CardCom icon={<DollarSign size={27} />} title={"Commission Amount (All-Time)"} data={!isLoading ? `$${defaultFormatDecimal(cardData.wallet_data?.total)}` : <Spinner />} />
                 </Col>
 
-                <Col md={6} onClick={() => navigate('')} style={{ cursor: "pointer" }}>
-                    <CardCom icon={<DollarSign size={27} />} title={"Total Commissions"} data={!isLoading ? `$${cardData.total_commission ?? "0" }` : <Spinner />}/>
+                <Col md={6}  style={{ cursor: "pointer" }}>
+                    <CardCom icon={<DollarSign size={27} />} title={"Total Commissions"} data={!isLoading ? `$${defaultFormatDecimal(cardData.wallet_data?.total_commission)}` : <Spinner />}/>
                 </Col>
 
-                <Col md={6} onClick={() => navigate('')} style={{ cursor: "pointer" }}>
-                    <CardCom icon={<DollarSign size={27} />} title={"Paid Commission"} data={!isLoading ? `$${cardData.wallet_data?.withdrawable - cardData.wallet_data?.total}` : <Spinner />} />
+                <Col md={6}  style={{ cursor: "pointer" }}>
+                    <CardCom icon={<DollarSign size={27} />} title={"Paid Commission (All-Time)"} data={!isLoading ? `$${defaultFormatDecimal(cardData.wallet_data?.withdrawable - cardData.wallet_data?.total)}` : <Spinner />} />
                 </Col>
 
-                <Col md={6} onClick={() => navigate('')} style={{ cursor: "pointer" }}>
+                <Col md={6}  style={{ cursor: "pointer" }}>
                     <CardCom icon={<DollarSign size={27} />} title={"Unpaid Commission"} data={!isLoading ? `$${cardData.wallet_data?.withdrawable}` : <Spinner />} />
                 </Col>
             </Row>
-            <AllEarnings />
+            <AllRevenue title="Total Revenue" />
         </>
     )
 }

@@ -1,13 +1,11 @@
 /* eslint-disable no-unused-vars */
-import React, { useState, useRef, useEffect } from "react"
-import { Container, Row } from 'reactstrap'
-import FrontBaseLoader from "../Components/Loader/Loader"
-import { forEach } from "lodash"
-import toast from "react-hot-toast"
-import { affiliateURL, ngrokURL, postReq } from "../../assets/auth/jwtService"
-import { useNavigate } from "react-router-dom"
-import { setToken } from "../../assets/auth/auth"
+import React, { useEffect, useRef, useState } from "react"
 import { ChevronLeft } from "react-feather"
+import toast from "react-hot-toast"
+import { useNavigate } from "react-router-dom"
+import { Container } from 'reactstrap'
+import { affiliateURL, postReq } from "../../assets/auth/jwtService"
+import FrontBaseLoader from "../Components/Loader/Loader"
 
 const ForgetOTP = ({ email, setShowOTP }) => {
     const [otp, setOTP] = useState(['', '', '', '', ''])
