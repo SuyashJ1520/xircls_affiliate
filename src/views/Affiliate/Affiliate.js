@@ -90,7 +90,7 @@ console.log(userPermission)
     msg: ''
   })
   const withdraw_amount_error_fun = () => {
-    if (inputChange.withdraw_amount === '0' || inputChange.withdraw_amount === '') {
+    if (inputChange.withdraw_amount === '0' || inputChange.withdraw_amount === '' || inputChange.withdraw_amount <= 0) {
       setWithdraw_amount_error({
         isValid: false,
         msg: 'Enter valid amount'
