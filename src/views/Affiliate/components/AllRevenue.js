@@ -69,12 +69,6 @@ const AllRevenue = ({title}) => {
       // selector: row => (row?.sale_amount ? row?.sale_amount : <div className='text-center w-100'>0</div>)
 
     },
-    // {
-    //   name: 'Sales Price',
-    //   sortable: true,
-    //   minWidth: '100px',
-    //   selector: row => (row.product_name ? row.product_name : <div className='text-center w-100'>-</div>)
-    // },
     {
       name: 'Commission',
       sortable: true,

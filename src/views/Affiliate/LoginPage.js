@@ -28,7 +28,8 @@ const LoginPage = () => {
 
     console.log(data)
 
-    const loginButtonHandler = () => {
+    const loginButtonHandler = (e) => {
+        e.preventDefault()
         if (data.email === "" || data.password === "") {
             toast.error('email or Password not found')
             return
@@ -85,7 +86,7 @@ const LoginPage = () => {
                         <Row className="w-100">
                             <div className='mx-auto' style={{ width: `666px`, maxWidth: `95%` }}>
                                 <div className="front_border" style={{ border: "1px solid #ebe9f1", padding: "3rem" }}>
-                                    <Form >
+                                    <form >
                                         <h3 className="third-font text-center font-three mb-2">Affiliate Login</h3>
                                         <hr />
                                         <div className="email mb-3 mt-2">
@@ -113,12 +114,12 @@ const LoginPage = () => {
                                             ) : ""}
                                         </div>
                                         <div className="d-flex align-items-center mt-4">
-                                            <button type="button" disabled={loading} onClick={() => loginButtonHandler()} id='login-btn' className="btn bg-black text-white me-1 form-btn text-light">
+                                            <button type="submit"  onClick={loginButtonHandler} id='login-btn' className="btn bg-black text-white me-1 form-btn text-light">
                                                 LOGIN
                                             </button>
                                             {/* <Link to="/forget-password" id='f-password' className='mx-2'>Forgot password?</Link> */}
                                         </div>
-                                    </Form>
+                                    </form>
                                     <p className="sixth-font font-size-sm fs-6 mt-2">
                                         Already a XIRCLS Affiliate? Signup <Link to="/affiliate/signup/" className="text-blue">here</Link>.
                                     </p>

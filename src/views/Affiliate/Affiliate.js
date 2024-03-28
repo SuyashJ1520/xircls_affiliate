@@ -206,10 +206,10 @@ console.log(userPermission)
   }, [])
 
   const withdrawReq = () => {
-    // if (!withdraw_amount_error_fun()) {
-    //   toast.error("Enter valid Amount!")
-    //   return false
-    // }
+    if (!withdraw_amount_error_fun()) {
+      toast.error("Enter valid Amount!")
+      return false
+    }
 
     setIsModal2(false)
     setApiLoader(true)
