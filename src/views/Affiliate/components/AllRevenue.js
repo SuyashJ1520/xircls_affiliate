@@ -53,13 +53,13 @@ const AllRevenue = ({title}) => {
       name: 'Order ID',
       sortable: true,
       minWidth: '100px',
-      selector: () =>  <div className='text-center w-100'>Dummy</div>
+      selector: row => (row.tran_id ?? <div className='text-center w-100'>Dummy</div>)
     },
     {
       name: 'App',
       sortable: true,
       minWidth: '100px',
-      selector: row => (row.product_name ? row.product_name : <div className='text-center w-100'>-</div>)
+      selector: row => (row.product?.product_name ?? <div className='text-center w-100'>-</div>)
     },
     {
       name: 'Sales Price',

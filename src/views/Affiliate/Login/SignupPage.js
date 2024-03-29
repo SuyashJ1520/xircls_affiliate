@@ -1,14 +1,14 @@
 /* eslint-disable no-unused-vars */
 import { Container, Row, Col } from "reactstrap"
 import { useEffect, useState } from "react"
-import { affiliateURL, baseURL, getReq, postReq } from "../../assets/auth/jwtService"
+import { affiliateURL, baseURL, getReq, postReq } from "../../../assets/auth/jwtService"
 import toast from 'react-hot-toast'
 import { Link, useNavigate } from "react-router-dom"
-import { selectPhoneList } from "../../Helper/data"
+import { selectPhoneList } from "../../../Helper/data"
 import Select from 'react-select'
-import { validForm, validateEmail } from "../Validator"
+import { validForm, validateEmail } from "../../Validator"
 import { Eye, EyeOff } from "react-feather"
-import FrontBaseLoader from "../Components/Loader/Loader"
+import FrontBaseLoader from "../../Components/Loader/Loader"
 import axios from "axios"
 
 const SignupPage = () => {

@@ -20,7 +20,6 @@ const DataTableWithButtons = () => {
 
 
   useEffect(() => {
-
     getReq("getCustomersDetails")
     .then((resp) => {
       setdata(resp.data.data)
@@ -28,6 +27,7 @@ const DataTableWithButtons = () => {
     .catch((error) => {
       console.log(error)
     })
+
   }, [])
 
   console.log(data)

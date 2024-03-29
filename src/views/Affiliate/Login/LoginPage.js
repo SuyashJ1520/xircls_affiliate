@@ -1,13 +1,13 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react"
 import { Container, Row, Form } from 'reactstrap'
-import { setToken } from "../../assets/auth/auth"
+import { setToken } from "../../../assets/auth/auth"
 import toast from "react-hot-toast"
-import Footer from "../XirclsFrontend/base/Footer"
+import Footer from "../../XirclsFrontend/base/Footer"
 import SignSection from "@src/default_components/SignSection.js"
 import { Link, useNavigate } from "react-router-dom"
-import FrontBaseLoader from "../Components/Loader/Loader"
-import { affiliateURL, ngrokURL, postReq } from "../../assets/auth/jwtService"
+import FrontBaseLoader from "../../Components/Loader/Loader"
+import { affiliateURL, ngrokURL, postReq } from "../../../assets/auth/jwtService"
 import LoginOTP from "./LoginOTP"
 
 

@@ -74,25 +74,19 @@ const Dash_Payout = () => {
       name: 'Transaction ID',
       sortable: true,
       minWidth: '100px',
-      selector: row => (row.payout_tran_id ? row.payout_tran_id : <div className='text-center w-100'>-</div>)
+      selector: row => (row.payout_tran_id ?? <div className='text-center w-100'>-</div>)
     },
     {
       name: 'Note',
       sortable: true,
       minWidth: '200px',
-      selector: row => (row.payout_remark ? row.payout_remark : <div className='text-center w-100'>-</div>)
+      selector: row => (row.payout_remark ?? <div className='text-center w-100'>-</div>)
     },
     {
       name: 'Admin Note',
       sortable: true,
       minWidth: '200px',
-      selector: row => (row.payout_admin_remark ? row.payout_admin_remark : <div className='text-center w-100'>-</div>)
-    },
-    {
-      name: 'Status',
-      sortable: true,
-      minWidth: '200px',
-      selector: row => (row.payout_admin_remark ? row.payout_admin_remark : <div className='text-center w-100'>-</div>)
+      selector: row => (row.payout_admin_remark ?? <div className='text-center w-100'>-</div>)
     },
     {
       name: 'Payout Amount',

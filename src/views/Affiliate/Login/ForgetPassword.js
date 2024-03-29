@@ -3,9 +3,9 @@ import React, { useState } from "react"
 import toast from "react-hot-toast"
 import { Link, useNavigate } from "react-router-dom"
 import { Container, Form, Row } from 'reactstrap'
-import { setToken } from "../../assets/auth/auth"
-import { affiliateURL, postReq } from "../../assets/auth/jwtService"
-import FrontBaseLoader from "../Components/Loader/Loader"
+import { setToken } from "../../../assets/auth/auth"
+import { affiliateURL, postReq } from "../../../assets/auth/jwtService"
+import FrontBaseLoader from "../../Components/Loader/Loader"
 import LoginOTP from "./LoginOTP"
 
 

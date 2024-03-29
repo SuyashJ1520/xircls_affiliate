@@ -35,23 +35,23 @@ const AllEarnings = () => {
       // selector: row => moment(row.created_at ? row.created_at : "").format('YYYY-MM-DD')
     },
     {
-      name: 'Merchant Name',
+      name: ' Name',
       sortable: true,
       minWidth: '100px',
-      selector: row => (row?.user?.firstname && row?.user?.lastname ? `${row?.user?.firstname} ${row?.user?.lastname}` : <div className='text-center w-100'>-</div>)
+      selector: row => (row?.customer?.first_name && row?.customer?.last_name ? `${row?.customer?.first_name} ${row?.customer?.last_name}` : <div className='text-center w-100'>-</div>)
     },
     {
       name: 'Email',
       sortable: true,
       minWidth: '200px',
-      selector: row => (row?.user?.personal_email ? (<div title={row?.user?.personal_email} className='text-center w-100'> {row?.user?.personal_email}</div>) : <div className='text-center w-100'>-</div>
+      selector: row => (row?.customer?.personal_email ?? <div className='text-center w-100'>-</div>
       )
     },
     {
       name: 'Mobile no',
       sortable: true,
       minWidth: '100px',
-      selector: row => (row?.user?.phonecode && row?.user?.phoneno ? (<div title={`${row?.user?.phonecode} ${row?.user?.phoneno}`} className='text-center w-100'>{`${row?.user?.phonecode} ${row?.user?.phoneno}`}</div>) : <div className='text-center w-100'>-</div>
+      selector: row => (row?.customer?.phonecode && row?.customer?.phoneno ? (<div title={`${row?.customer?.phonecode} ${row?.customer?.phoneno}`} className='text-center w-100'>{`${row?.customer?.phonecode} ${row?.customer?.phoneno}`}</div>) : <div className='text-center w-100'>-</div>
       )
     },
     {
@@ -65,7 +65,7 @@ const AllEarnings = () => {
       name: 'App',
       sortable: true,
       minWidth: '100px',
-      selector: row => (row.product_name ? row.product_name : <div className='text-center w-100'>-</div>)
+      selector: row => (row.product.product_name ?? <div className='text-center w-100'>-</div>)
     },
     // {
     //   name: 'Sales Price',

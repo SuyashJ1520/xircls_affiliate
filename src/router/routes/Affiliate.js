@@ -4,8 +4,8 @@ import AffiliateAdminTable from "../../views/Affiliate/AffiliateAdminTable"
 import Affiliate from "../../views/Affiliate/Affiliate"
 import AffiliateSignUp from "../../views/Affiliate/AffiliateSignUp"
 import SignupLink from "../../views/Affiliate/SignupLink"
-import LoginPage from "../../views/Affiliate/LoginPage"
-import SignupPage from "../../views/Affiliate/SignupPage"
+import LoginPage from "../../views/Affiliate/Login/LoginPage"
+import SignupPage from "../../views/Affiliate/Login/SignupPage"
 import AllClicks from "../../views/Affiliate/components/AllClicks"
 import AllLeads from "../../views/Affiliate/components/AllLeads"
 import AllCustomers from "../../views/Affiliate/components/AllCustomers"
@@ -31,8 +31,8 @@ import CreateSupport from '../../views/Affiliate/components/CreateSupport'
 import Dash_Payout from '../../views/Affiliate/components/Dash_Payout'
 import OrderValue from '../../views/Affiliate/components/OrderValue'
 import Conversion_Rate from '../../views/Affiliate/components/Conversion_Rate'
-import VerifyEmail from '../../views/Affiliate/VerifyEmail'
-import ForgetPassword from '../../views/Affiliate/ForgetPassword'
+import VerifyEmail from '../../views/Affiliate/Login/VerifyEmail'
+import ForgetPassword from '../../views/Affiliate/Login/ForgetPassword'
 const Apps = lazy(() => import('../../views/Apps/Apps'))
 
 const MerchantHome = lazy(() => import('../../views/Apps/Home'))
